@@ -1,0 +1,63 @@
+FINANCE AUTHORIZATION POLICY
+
+Effective Date: January 1, 2026
+Policy Owner: Finance Department
+Version: 1.0
+
+1. PURPOSE
+
+This policy establishes financial authorization requirements for company expenditures, purchases, reimbursements, contracts, and other financial commitments. The purpose is to ensure appropriate oversight, accountability, and separation of duties.
+
+2. SCOPE
+
+This policy applies to all employees, contractors, managers, and executives who initiate, approve, process, or review financial transactions on behalf of the company.
+
+3. AUTHORIZATION LIMITS
+
+Employees may approve routine business expenses up to $1,000 when the expense is within an approved departmental budget.
+
+Managers may approve expenditures up to $10,000.
+
+Department Directors may approve expenditures up to $50,000.
+
+Any expenditure exceeding $50,000 requires approval from both the Chief Financial Officer (CFO) and the relevant Department Director.
+
+Transactions exceeding $250,000 require approval from the CFO and Chief Executive Officer (CEO).
+
+4. PURCHASE ORDERS
+
+Purchases exceeding $5,000 must have an approved purchase order before goods or services are ordered.
+
+Employees may not divide a purchase into multiple smaller transactions for the purpose of avoiding approval thresholds.
+
+5. EXPENSE REIMBURSEMENTS
+
+Employees must submit reimbursement requests within 30 days of the expense.
+
+Receipts are required for individual expenses greater than $25.
+
+Managers are responsible for reviewing reimbursement requests for accuracy and legitimate business purpose.
+
+Employees may not approve their own reimbursement requests.
+
+6. SEGREGATION OF DUTIES
+
+Whenever practical, the individual requesting a financial transaction should not be the same individual approving and processing the transaction.
+
+Employees responsible for issuing payments should not approve the underlying purchase.
+
+7. EMERGENCY EXPENDITURES
+
+Emergency expenditures may be processed without normal pre-approval when delaying the transaction could cause significant operational disruption or financial loss.
+
+Emergency expenditures must be documented and submitted to the Finance Department for retrospective approval within five business days.
+
+8. RECORD RETENTION
+
+Documentation supporting financial transactions must be retained for a minimum of seven years.
+
+Records must include invoices, approvals, purchase orders, receipts, and supporting documentation where applicable.
+
+9. POLICY VIOLATIONS
+
+Violations may result in suspension of financial authorization privileges and may be escalated to management, Internal Audit, Human Resources, or Legal depending on the severity of the violation.

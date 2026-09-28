@@ -1,0 +1,77 @@
+PRIVILEGED ACCESS MANAGEMENT POLICY
+Effective Date: July 1, 2026
+
+Policy Owner: Identity & Access Governance (IAG)
+
+Version: 2.0
+
+1. PURPOSE
+This policy establishes strict mandatory requirements for requesting, approving, vaulting, monitoring, auditing, and revoking privileged access across all enterprise information systems.
+
+Privileged accounts grant administrative, root, or elevated permissions and represent critical security exposure. The objective is to enforce Zero Trust principles, mandate Just-In-Time (JIT) access where applicable, and mitigate insider and external cyber threats.
+
+2. SCOPE
+This policy applies globally to all employees, temporary workers, external contractors, third-party vendor representatives, system engineers, database administrators, and automated service accounts requiring elevated privileges on company infrastructure, cloud services, databases, network devices, and code repositories.
+
+3. ACCESS APPROVAL & TIERED AUTHORIZATION
+Privileged access is granted strictly based on Least Privilege and Need-to-Know principles. Approval workflows depend on system classification:
+
+Standard Business / Non-Production Systems: Requires approval from the direct Line Manager and the System Owner.
+
+Production & High-Risk Systems (PII/Financial/Core Infrastructure): Requires dual approval from the System Owner and the Chief Information Security Officer (CISO) or designated IAG Delegate.
+
+Permanent / Standing Privileged Access: Explicitly prohibited for human users. All privileged access must be temporary and auto-expiring.
+
+4. ARCHITECTURE & VAULTING REQUIREMENTS
+Privileged Access Management (PAM) Vault: All administrative credentials (passwords, SSH keys, API tokens) must be stored, rotated, and checked out via the enterprise PAM vault. Direct login without vault mediation is strictly prohibited.
+
+Separation of Accounts: Users must maintain a standard user account for daily activities (email, browsing) and a distinct privileged account (priv_ prefix) for administrative duties.
+
+Shared & Root Accounts: Built-in root/administrator accounts must be vaulted with automated password rotation after every use or every 24 hours. Shared logins are banned unless technically impossible, in which case session recording is mandatory.
+
+5. AUTHENTICATION & SESSION CONTROL
+Hardware-Based MFA: Phishing-resistant Multi-Factor Authentication (FIDO2/WebAuthn hardware keys) is mandatory for all privileged logins, including local and remote access.
+
+Session Timeout: Privileged sessions automatically terminate after 15 minutes of inactivity.
+
+Session Recording: Real-time video and command-level session recording is mandatory for all access to production environments, payment gateways, and core databases.
+
+6. AUDITING, LOGGING & RETENTION
+Log Scope: System logs must capture user ID, vaulted session ID, source IP address, exact commands executed, target system, and precise UTC timestamps.
+
+Log Retention: Audit logs for all privileged activities must be streamed to a write-once Read-Many (WORM) central SIEM and retained for at least 24 months (7 years for financial/tax systems).
+
+Automated Threat Monitoring: Real-time behavioral analytics must alert the SOC immediately upon detection of out-of-hours access, concurrent multi-location logins, or unauthorized privilege escalation commands.
+
+7. ACCESS REVIEWS & RECERTIFICATION
+Tier 1 (Production / Critical Systems): Access must be reviewed and recertified monthly by System Owners.
+
+Tier 2 (General Enterprise Systems): Access must be reviewed quarterly.
+
+Orphaned Access Remediation: Uncertified access rights automatically revoke within 48 hours following a passed review deadline. Evidence of review sign-off must be retained by IAG for regulatory auditing.
+
+8. WORKFORCE CHANGES & TERMINATION SLAs
+Involuntary Termination: Privileged credentials, active sessions, and access rights must be revoked immediately (within 1 hour) of notification from HR.
+
+Voluntary Resignation: Access must be revoked at the official end of the final working day.
+
+Role Change / Transfer: Privileged access tied to a previous position must be revoked within 24 hours (1 business day) of the effective transfer date.
+
+9. THIRD-PARTY & VENDOR ELEVATED ACCESS
+Vendor privileged access must be authorized by a Senior Director and restricted to dedicated Jump Hosts with mandatory session recording.
+
+Vendor access window cannot exceed 8 consecutive hours per session request; permanent external access is strictly prohibited.
+
+All vendor activities must be actively monitored in real time or reviewed post-session by a designated internal System Owner.
+
+10. EMERGENCY ACCESS ("BREAK-GLASS")
+Emergency administrative credentials are sealed in the PAM vault and restricted to active outages or P1 incidents.
+
+Unlocking a break-glass account requires dual-custody authorization (two designated security leaders).
+
+Post-Incident Audit SLA: Full audit logging and justification of break-glass usage must be formally submitted to the CISO and IAG within 24 hours of incident closure.
+
+11. POLICY EXCEPTIONS & ENFORCEMENT
+Exceptions: Temporary policy exceptions require a documented risk assessment, compensating security controls, and formal sign-off from the CISO and Enterprise Risk Committee. Exceptions expire after a maximum of 90 days.
+
+Violations: Bypassing PAM controls, sharing credentials, or turning off session logging constitutes a critical security breach resulting in immediate access revocation, potential employment termination, and escalation to Legal and Regulatory Compliance.

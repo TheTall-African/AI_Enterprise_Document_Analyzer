@@ -1,0 +1,99 @@
+THIRD-PARTY VENDOR RISK MANAGEMENT POLICY
+
+Effective Date: January 1, 2026
+Policy Owner: Enterprise Risk Management
+Version: 1.0
+
+1. PURPOSE
+
+This policy establishes requirements for identifying, assessing, approving, monitoring, and terminating third-party vendor relationships.
+
+The objective is to reduce cybersecurity, operational, financial, compliance, privacy, and reputational risks associated with third parties.
+
+2. SCOPE
+
+This policy applies to vendors, contractors, consultants, service providers, software providers, cloud providers, and other third parties that provide products or services to the company.
+
+3. VENDOR RISK CLASSIFICATION
+
+Vendors must be classified according to their level of risk.
+
+Low-risk vendors have limited access to company information and do not support critical business processes.
+
+Medium-risk vendors may process internal company information or support important business operations.
+
+High-risk vendors include vendors that:
+
+- Process confidential or sensitive information.
+- Access production systems.
+- Store customer information.
+- Support critical business processes.
+- Provide significant technology infrastructure.
+- Could materially disrupt company operations if unavailable.
+
+4. DUE DILIGENCE
+
+Risk assessments must be completed before entering into relationships with high-risk vendors.
+
+Assessments may include:
+
+- Information security questionnaires.
+- Financial stability reviews.
+- SOC 2 or similar assurance reports.
+- Data privacy assessments.
+- Business continuity documentation.
+- Regulatory and compliance reviews.
+- Cybersecurity controls assessments.
+
+Medium-risk vendors should undergo a risk assessment based on the nature of the service.
+
+5. CONTRACT REQUIREMENTS
+
+Contracts involving sensitive company or customer information must include appropriate security and confidentiality requirements.
+
+Where applicable, contracts should address:
+
+- Data protection.
+- Security incident notification.
+- Audit rights.
+- Business continuity.
+- Regulatory requirements.
+- Data destruction following contract termination.
+
+6. ONGOING MONITORING
+
+High-risk vendors must be reassessed at least annually.
+
+Medium-risk vendors should be reassessed at least once every two years.
+
+Vendor owners are responsible for reporting significant changes in vendor services or risk exposure.
+
+7. SECURITY INCIDENTS
+
+Vendors must notify the company of confirmed security incidents involving company information as soon as reasonably possible.
+
+Critical vendor incidents must be escalated to Information Security, Legal, and Enterprise Risk Management.
+
+8. VENDOR ACCESS
+
+Vendor access to company systems must follow the company's access-control and privileged-access requirements.
+
+Access must be limited to systems necessary for the vendor's contracted responsibilities.
+
+Vendor access must be removed when the relationship ends.
+
+9. TERMINATION
+
+The business owner must notify Information Technology and Information Security when a vendor relationship ends.
+
+Company information must be returned or securely destroyed according to contractual and regulatory requirements.
+
+System credentials and remote access associated with the vendor must be disabled.
+
+10. EXCEPTIONS
+
+Exceptions to this policy must be documented and approved by Enterprise Risk Management and the appropriate business owner.
+
+11. POLICY REVIEW
+
+This policy must be reviewed at least annually and updated when significant changes occur to regulatory requirements, company operations, or the third-party risk environment.

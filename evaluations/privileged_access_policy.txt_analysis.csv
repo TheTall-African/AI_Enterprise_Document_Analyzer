@@ -1,0 +1,46 @@
+category,value
+risks,Privileged accounts create critical security exposure and may be exploited by insider or external threats.
+risks,"Excessive, standing, or unauthorized privileged access may violate least-privilege and need-to-know principles."
+risks,"Unvaulted, shared, or inadequately rotated credentials may be compromised or misused."
+risks,Unrecorded or insufficiently monitored privileged sessions may hinder detection and investigation of misuse.
+risks,"Uncertified, orphaned, or outdated access may remain active after review deadlines or workforce changes."
+risks,"Vendor or third-party privileged access may create security exposure if it is not restricted, monitored, or time-limited."
+risks,Break-glass access may be misused or inadequately documented.
+controls,"Grant privileged access according to least-privilege and need-to-know principles, using approval workflows based on system classification."
+controls,"Prohibit permanent or standing privileged access for human users; require temporary, auto-expiring access."
+controls,"Store, rotate, and check out administrative credentials through the enterprise PAM vault; prohibit direct login without vault mediation."
+controls,"Require separate standard and privileged accounts, with the privileged account using the priv_ prefix."
+controls,Vault built-in root and administrator accounts and rotate their passwords after every use or every 24 hours.
+controls,Ban shared logins unless technically impossible; require session recording when they are used.
+controls,Require phishing-resistant FIDO2/WebAuthn hardware-key MFA for all privileged logins.
+controls,Automatically terminate privileged sessions after 15 minutes of inactivity.
+controls,"Record production, payment gateway, and core database sessions in real time, including video and commands."
+controls,"Capture user ID, vaulted session ID, source IP address, commands, target system, and precise UTC timestamps in system logs."
+controls,"Stream privileged activity audit logs to a WORM central SIEM and retain them for at least 24 months, or 7 years for financial and tax systems."
+controls,"Use real-time behavioral analytics to alert the SOC to out-of-hours access, concurrent multi-location logins, and unauthorized privilege escalation commands."
+controls,Review and recertify Tier 1 production and critical-system access monthly by System Owners; review Tier 2 general enterprise access quarterly.
+controls,Automatically revoke uncertified access within 48 hours after a passed review deadline and retain review sign-off evidence at IAG.
+controls,"Revoke privileged credentials, sessions, and access within 1 hour of HR notification of involuntary termination; revoke voluntary-resignation access at the end of the final working day; revoke access tied to a previous role within 24 hours of an effective transfer."
+controls,"Authorize vendor access through a Senior Director, restrict it to dedicated Jump Hosts, and require session recording."
+controls,Limit vendor access to no more than 8 consecutive hours per session request; prohibit permanent external access.
+controls,Require real-time monitoring or post-session review of vendor activity by a designated internal System Owner.
+controls,"Restrict break-glass credentials to active outages or P1 incidents, seal them in the PAM vault, and require dual-custody authorization by two designated security leaders."
+controls,Require full audit logging and justification of break-glass use to be submitted to the CISO and IAG within 24 hours of incident closure.
+controls,"Require temporary exceptions to have a documented risk assessment, compensating security controls, and formal CISO and Enterprise Risk Committee sign-off; limit exceptions to 90 days."
+controls,"Treat bypassing PAM controls, credential sharing, or disabling session logging as a critical security breach subject to immediate access revocation and escalation."
+control_owners,Identity & Access Governance (IAG)
+control_owners,System Owners
+control_owners,SOC
+control_owners,Designated internal System Owner
+control_owners,Two designated security leaders
+control_owners,HR
+approval_authorities,Direct Line Manager and System Owner for standard business and non-production systems
+approval_authorities,System Owner and CISO or designated IAG Delegate for production and high-risk systems
+approval_authorities,Senior Director for vendor privileged access
+approval_authorities,Two designated security leaders for break-glass account unlocking
+approval_authorities,CISO and Enterprise Risk Committee for temporary policy exceptions
+exceptions,"Shared logins are permitted only when technically impossible, with mandatory session recording."
+exceptions,"Temporary policy exceptions require a documented risk assessment, compensating security controls, and formal sign-off from the CISO and Enterprise Risk Committee; they expire after a maximum of 90 days."
+follow_up_questions,"Who are the designated IAG Delegates, security leaders, and internal System Owners for these approval and monitoring responsibilities?"
+follow_up_questions,What process determines that shared logins are technically impossible?
+follow_up_questions,"How are access reviews, review deadlines, and automatic revocation operationally administered?"
