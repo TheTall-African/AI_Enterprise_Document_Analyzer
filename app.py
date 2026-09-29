@@ -4,8 +4,14 @@ import pandas as pd
 from analyzer import analyze_document, extract_text
 from chunker import chunk_text
 from embeddings import create_embedding
-from vector_store import(add_chunk, search_chunks)
+from vector_store import(add_chunk, search_chunks, clear_collection)
 from rag import generate_rag_answer
+
+#This "if" statement is to handle the case of any docs that may still be stored in the db
+if "documents_indexed" not in st.session_state:
+    st.session_state.documents_indexed = False
+if "uploader_key" not in st.session_state:
+    st.session_state.uploader_key = 0
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -31,6 +37,15 @@ st.write(
     """
 )
 
+# -------------------------------------------------
+# CLEAR BUTTON
+# -------------------------------------------------
+if st.button("Clear Document Index"):
+    clear_collection()
+    st.session_state.documents_indexed = False
+    st.session_state.uploader_key += 1
+    st.success("All uploaded files cleared.")
+    st.rerun()
 
 # -------------------------------------------------
 # FILE UPLOAD
@@ -39,7 +54,8 @@ st.write(
 uploaded_files = st.file_uploader(
     "Upload policy or control documents",
     type=["txt", "pdf"],
-    accept_multiple_files=True
+    accept_multiple_files=True, 
+    key=f"document_uploader_{st.session_state.uploader_key}"
 )
 
 
@@ -67,7 +83,7 @@ if uploaded_files:
     )
 
     # Preview each uploaded document
-    for index, document in enumerate(documents):
+    for document in documents:
 
         if document["text"].strip():
 
@@ -364,9 +380,9 @@ if st.button("Index Documents for Search"):
                           filename = filename
                           )
                 total_chunks += 1
-        st.success(
-            f"Indexed {total_chunks} chunks successfully."
-        )
+
+        st.success(f"Indexed {total_chunks} chunks successfully.")
+        st.session_state.documents_indexed = True
 
 
 # -------------------------------------------------
@@ -377,8 +393,10 @@ st.subheader("Search your documents")
 user_question = st.text_input("Ask a question about the uploaded documents")
 #right after this is where the search functionality will be implemented to answer the user's question
 
-if st.button("Search Documents"):
-    if not user_question.strip():
+if st.button("Question Documents"):
+    if not st.session_state.documents_indexed:
+        st.warning("Please upload and index documents before searching.")
+    elif not user_question.strip():
         st.warning("Please enter your question.")
     else:
         with st.spinner("Searching documents..."):
@@ -441,11 +459,16 @@ if st.button("Search Documents"):
                     st.write(chunk)
 
                     st.divider()
+
+st.subheader("Analyze your documents")
+st.write("Click the button below to pull key facts about your documents such as:")
+st.write("document type, business function, major risks, controls, and other key risk information.")
+
 # -------------------------------------------------
 # ANALYZE BUTTON
 # -------------------------------------------------
 
-if st.button("Analyze Documents"):
+if st.button("Analyze"):
 
 
     # ---------------------------------------------
@@ -454,7 +477,7 @@ if st.button("Analyze Documents"):
 
     if documents:
 
-        for document in documents:
+        for index, document in enumerate(documents):
 
             filename = document["filename"]
 

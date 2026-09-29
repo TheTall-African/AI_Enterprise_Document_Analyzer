@@ -25,3 +25,14 @@ def search_chunks(query_embedding, number_of_results=3):
     )
 
     return results
+
+# CLEAR button function: This function clears all documents from the current uploaded docs library
+def clear_collection():
+    global collection
+    client.delete_collection(
+        name="enterprise_documents"
+    )
+
+    collection= client.get_or_create_collection(
+        name="enterprise_documents"
+    )
