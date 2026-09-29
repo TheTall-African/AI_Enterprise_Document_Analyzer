@@ -2,7 +2,10 @@ import streamlit as st
 import pandas as pd
 
 from analyzer import analyze_document, extract_text
-
+from chunker import chunk_text
+from embeddings import create_embedding
+from vector_store import(add_chunk, search_chunks)
+from rag import generate_rag_answer
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -64,7 +67,7 @@ if uploaded_files:
     )
 
     # Preview each uploaded document
-    for document in documents:
+    for index, document in enumerate(documents):
 
         if document["text"].strip():
 
@@ -317,6 +320,127 @@ def display_analysis(result, filename="manual_document"):
         )
 
 
+
+# -------------------------------------------------
+#  INDEX DOCUMENTS BUTTON
+# -------------------------------------------------
+st.divider()
+
+st.subheader(
+    "Document Search Setup"
+)
+
+if st.button("Index Documents for Search"):
+    if not documents:
+        st.warning("Please upload documents first.")
+    else:
+        total_chunks= 0
+
+        for document_index, document in enumerate(documents):
+            filename = document["filename"]
+            text = document["text"]
+
+            if not text.strip():
+                continue
+
+            #Step 1. Split document into chunks
+            chunks = chunk_text(text)
+
+            #Step 2. Process each chunk
+            for chunk_index, chunk in enumerate(chunks):
+                #Step 3. Convert chunk into embedding
+                embedding = create_embedding(chunk)
+
+                #Step 4. Create unique ID for chunk
+                chunk_id = (f"{document_index}_"
+                            f"{chunk_index}_"
+                            f"{filename}"
+                )
+
+                #Step 5. Store chunk and embedding
+                add_chunk(chunk_id = chunk_id,
+                          text = chunk,
+                          embedding = embedding,
+                          filename = filename
+                          )
+                total_chunks += 1
+        st.success(
+            f"Indexed {total_chunks} chunks successfully."
+        )
+
+
+# -------------------------------------------------
+# SEARCH BUTTON - questioning the model (most confusing feature, must understand)
+# -------------------------------------------------
+st.subheader("Search your documents")
+
+user_question = st.text_input("Ask a question about the uploaded documents")
+#right after this is where the search functionality will be implemented to answer the user's question
+
+if st.button("Search Documents"):
+    if not user_question.strip():
+        st.warning("Please enter your question.")
+    else:
+        with st.spinner("Searching documents..."):
+            question_embedding = create_embedding(user_question)
+
+            results = search_chunks(
+                question_embedding,
+                number_of_results = 3
+            )
+
+        st.subheader("Most Relevant Document Chunks")
+
+        documents_found = results.get(
+            "documents", [[]]
+        )[0]
+
+        metadata_found = results.get(
+            "metadatas", [[]]
+        )[0]
+
+        distances = results.get(
+            "distances", [[]]
+        )[0]
+
+        if not documents_found:
+            st.warning("No relevant document content was found.")
+        else:
+            with st.spinner("Generating answer..."):
+                rag_answer = generate_rag_answer(user_question, documents_found)
+
+            st.subheader("Answer")
+
+            st.write(rag_answer)
+
+            st.subheader("Sources:")
+
+            source_files = set()
+
+            for metadata in metadata_found:
+                filename = metadata.get("filename", "Unknown")
+                source_files.add(filename)
+
+            for filename in source_files:
+                st.write(f"- {filename}")
+
+            with st.expander("View Retrieval Debug Information"):
+
+                for index, chunk in enumerate(documents_found):
+                    filename = metadata_found[index].get("filename", "Unknown")
+
+                    st.write(f"### Result {index + 1}")
+
+                    st.write(f"**Source:** {filename}")
+
+                    st.write(
+                        f"**Distance:** "
+                        f"{distances[index]:.4f}"
+                    )
+
+                    st.write(chunk)
+
+                    st.divider()
 # -------------------------------------------------
 # ANALYZE BUTTON
 # -------------------------------------------------
@@ -340,7 +464,7 @@ if st.button("Analyze Documents"):
             if not document["text"].strip():
 
                 st.warning(
-                    f"No readable text found in {document['filename']}."
+                    f"No readable text found in {filename}."
                 )
 
                 continue
@@ -371,7 +495,7 @@ if st.button("Analyze Documents"):
 
             display_analysis(
                 analysis,
-                filename
+                f"{index}_{filename}"
             )
 
 
